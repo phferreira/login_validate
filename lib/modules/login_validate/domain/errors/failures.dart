@@ -6,3 +6,10 @@ class InvalidUserPassword implements Failure {
 
   InvalidUserPassword([this.message = '']);
 }
+
+class DataSourceError implements Failure {
+  @override
+  final String message;
+
+  DataSourceError([this.message = '']);
+}
