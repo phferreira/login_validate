@@ -1,0 +1,1 @@
+typedef QueryType = List<dynamic>;
