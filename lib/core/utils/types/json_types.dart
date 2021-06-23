@@ -1,1 +1,2 @@
-typedef JsonType = Map<String, dynamic>;
+typedef JsonResultType = Map<String, dynamic>;
+typedef JsonType = String;
