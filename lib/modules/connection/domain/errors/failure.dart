@@ -13,3 +13,17 @@ class PostgresConnectionError implements Failure {
 
   PostgresConnectionError([this.message = '']);
 }
+
+class PostgresNotFoundError implements Failure {
+  @override
+  final String message;
+
+  PostgresNotFoundError([this.message = '']);
+}
+
+class PostgresError implements Failure {
+  @override
+  final String message;
+
+  PostgresError([this.message = '']);
+}

@@ -13,3 +13,17 @@ class DataSourceError implements Failure {
 
   DataSourceError([this.message = '']);
 }
+
+class NotFoundError implements Failure {
+  @override
+  final String message;
+
+  NotFoundError([this.message = '']);
+}
+
+class LoginValidateError implements Failure {
+  @override
+  final String message;
+
+  LoginValidateError([this.message = '']);
+}
