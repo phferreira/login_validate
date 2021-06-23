@@ -12,7 +12,7 @@ class LoginValidateRepository extends ILoginValidateRepository {
   });
 
   @override
-  Future<Either<Failure, JsonType>> loginValidate(JsonType param) async {
+  Future<Either<Failure, JsonResultType>> loginValidate(JsonType param) async {
     return await datasource.loginValidate(param);
   }
 }
