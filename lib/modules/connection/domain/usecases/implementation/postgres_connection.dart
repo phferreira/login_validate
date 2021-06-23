@@ -12,37 +12,32 @@ class PostgresConnection extends IConnection {
   late final PostgreSQLConnection _connection;
 
   PostgresConnection._internal() {
-    print('internal');
     final _port = int.parse(Platform.environment['DB_PORT'].toString());
     final _host = Platform.environment['DB_HOST'].toString();
     final _user = Platform.environment['DB_USER'].toString();
     final _pass = Platform.environment['DB_PASS'].toString();
     final _name = Platform.environment['DB_NAME'].toString();
-    try {
-      _connection = PostgreSQLConnection(_host, _port, _name, username: _user, password: _pass);
-    } catch (e) {
-      throw PostgresConnectionError('Error on internal set params.');
-    }
+
+    _connection = PostgreSQLConnection(_host, _port, _name, username: _user, password: _pass);
   }
 
   factory PostgresConnection() {
-    print('factory');
     return _instance;
   }
 
   void open() async {
-    await _connection.open().whenComplete(() => print('connect'));
+    await _connection.open();
   }
 
   @override
   Future<Either<Failure, QueryType>> query(String sql) async {
-    print('query');
     try {
-      return Right(await _connection.mappedResultsQuery(sql));
-    } on PostgresConnectionError catch (e) {
-      return Left(PostgresConnectionError(e.message));
-    } catch (e) {
+      var result = await _connection.mappedResultsQuery(sql, substitutionValues: <String, dynamic>{});
+      return result.isNotEmpty ? Right(result) : Left(PostgresNotFoundError('Could not find record.'));
+    } on PostgreSQLSeverity {
       return Left(PostgresQueryError('Error on execute query.'));
+    } on PostgreSQLException catch (e) {
+      return Left(PostgresError(e.message.toString()));
     }
   }
 
