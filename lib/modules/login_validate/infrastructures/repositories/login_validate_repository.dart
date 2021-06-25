@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:dart_login/core/error/failure.dart';
 import 'package:dart_login/core/utils/types/json_types.dart';
@@ -17,7 +19,9 @@ class LoginValidateRepository extends ILoginValidateRepository {
   @override
   Future<Either<Failure, JsonType>> loginValidate(JsonType param) async {
     return (await datasource.loginValidate(param)).fold((l) => Left(l), (r) async {
-      return (await getToken.getToken(r)).fold((l) => Left(l), (r) => Right(r));
+      return (await getToken.getToken(r)).fold((l) => Left(l), (r) {
+        return Right(base64Encode(r.codeUnits));
+      });
     });
   }
 }
