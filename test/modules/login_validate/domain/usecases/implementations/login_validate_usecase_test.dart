@@ -5,18 +5,18 @@ import 'package:dart_login/modules/login_validate/domain/repositories/login_vali
 import 'package:dartz/dartz.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
-import '../../../utils/json_login.dart';
+import '../../../../../utils/json_login.dart';
 
 class LoginValidateRepositoryMock extends Mock implements ILoginValidateRepository {}
 
 void main() {
   final repository = LoginValidateRepositoryMock();
 
-  test('Must be return a json to response', () async {
-    when(() => repository.loginValidate(any())).thenAnswer((_) async => Right(jsonResponse));
+  test('Must be return a jsonType of String to response', () async {
+    when(() => repository.loginValidate(any())).thenAnswer((_) async => Right('jsonResponse'));
     final result = await repository.loginValidate(jsonLogin.toString());
     expect(result.isRight(), true);
-    expect(result, isA<Right<Failure, JsonResultType>>());
+    expect(result, isA<Right<Failure, JsonType>>());
     verify(() => repository.loginValidate(any()));
   });
 
@@ -24,7 +24,7 @@ void main() {
     when(() => repository.loginValidate(any())).thenAnswer((_) async => Left(InvalidUserPassword()));
     final result = await repository.loginValidate(jsonLogin.toString());
     expect(result.isLeft(), true);
-    expect(result, isA<Left<Failure, JsonResultType>>());
+    expect(result, isA<Left<Failure, JsonType>>());
     verify(() => repository.loginValidate(any()));
   });
 }
