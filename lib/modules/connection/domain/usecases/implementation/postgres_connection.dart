@@ -26,7 +26,9 @@ class PostgresConnection extends IConnection {
   }
 
   void open() async {
-    await _connection.open();
+    if (_connection.isClosed) {
+      await _connection.open();
+    }
   }
 
   @override
