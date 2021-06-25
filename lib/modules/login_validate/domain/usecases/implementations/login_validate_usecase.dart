@@ -12,7 +12,7 @@ class LoginValidateUseCase extends ILoginValidateUseCase {
   });
 
   @override
-  Future<Either<Failure, JsonResultType>> call(JsonType param) {
+  Future<Either<Failure, JsonType>> call(JsonType param) {
     return repository.loginValidate(param);
   }
 }
