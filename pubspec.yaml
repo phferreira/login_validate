@@ -7,6 +7,7 @@ environment:
 
 dependencies:
   dartz: ^0.10.0-nullsafety.2
+  dio: ^4.0.0
   functions_framework: ^0.4.0
   mocktail: ^0.1.4
   postgres: ^2.3.2
