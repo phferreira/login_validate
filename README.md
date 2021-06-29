@@ -10,8 +10,11 @@ running in a hosted environment.
 $ docker build -t login_validate .
 ...
 
-$ docker run -it -p 4325:8080 --name app login_validate
-Listening on :4325
+$ docker run --net application_network --name login_validate --env-file ../env_file/file.env -d -p 4525:8080 login_validate
+
+# must be in the same network of get_token and postgres
+
+Listening on :8080
 ```
 
 ## Clean up
