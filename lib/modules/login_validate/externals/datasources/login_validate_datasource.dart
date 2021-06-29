@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:dart_login/core/utils/types/json_types.dart';
 import 'package:dart_login/core/error/failure.dart';
 import 'package:dart_login/modules/connection/domain/errors/failure.dart';

@@ -18,10 +18,14 @@ class LoginValidateRepository extends ILoginValidateRepository {
 
   @override
   Future<Either<Failure, ResultType>> loginValidate(JsonType param) async {
-    return (await datasource.loginValidate(param)).fold((l) => Left(l), (r) async {
-      return (await getToken.getToken(r)).fold((l) => Left(l), (r) {
-        return Right(base64Encode(r.codeUnits));
-      });
-    });
+    return (await datasource.loginValidate(param)).fold(
+      (l) => Left(l),
+      (r) async {
+        return (await getToken.getToken(r)).fold(
+          (l) => Left(l),
+          (r) => Right(base64Encode(r.codeUnits)),
+        );
+      },
+    );
   }
 }
