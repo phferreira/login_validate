@@ -23,9 +23,8 @@ class LoginValidateDataSource extends ILoginValidateDataSource {
   @override
   Future<Either<Failure, JsonResultType>> loginValidate(JsonType param) async {
     try {
-      final jsonParam = (jsonDecode(utf8.decode(base64Decode(param))));
-      final username = jsonParam['username'];
-      final password = jsonParam['password'];
+      final username = param['username'];
+      final password = param['password'];
       final sql = '''
            select id_codigo as id, tx_role as role
              from tb_usuario
