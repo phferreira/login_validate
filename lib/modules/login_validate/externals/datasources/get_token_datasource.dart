@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:dart_login/core/error/failure.dart';
@@ -9,7 +11,10 @@ class GetTokenDataSource extends IGetTokenDatasource {
 
   @override
   Future<Either<Failure, JsonType>> getToken(JsonResultType param) async {
-    var response = (await dio.post('http://localhost:4323', data: param));
+    var response = (await dio.post(
+      'http://localhost:4323',
+      data: base64Encode(utf8.encode(param.toString())),
+    ));
     return Right(response.data);
   }
 }
