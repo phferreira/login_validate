@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:dart_login/modules/connection/domain/usecases/implementation/postgres_connection.dart';
 import 'package:dart_login/modules/login_validate/domain/usecases/implementations/login_validate_usecase.dart';
 import 'package:dart_login/modules/login_validate/externals/datasources/get_token_datasource.dart';
 import 'package:dart_login/modules/login_validate/externals/datasources/login_validate_datasource.dart';
@@ -7,14 +6,15 @@ import 'package:dart_login/modules/login_validate/infrastructures/repositories/l
 import 'package:functions_framework/functions_framework.dart';
 import 'package:shelf/shelf.dart';
 
+final usecase = LoginValidateUseCase(
+  repository: LoginValidateRepository(
+    datasource: LoginValidateDataSource(),
+    getToken: GetTokenDataSource(),
+  ),
+);
+
 @CloudFunction()
 Future<Response> function(Request request) async {
-  final usecase = LoginValidateUseCase(
-    repository: LoginValidateRepository(
-      datasource: LoginValidateDataSource(),
-      getToken: GetTokenDataSource(),
-    ),
-  );
   var result = await usecase(await request.readAsString());
   return result.fold((l) => Response.forbidden(l.message), (r) => Response.ok(jsonEncode(r)));
 }
