@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -12,7 +13,7 @@ class GetTokenDataSource extends IGetTokenDatasource {
   @override
   Future<Either<Failure, ResultType>> getToken(JsonResultType param) async {
     var response = (await dio.post(
-      'http://localhost:4323',
+      'http://' + Platform.environment['GET_TOKEN_API'].toString(),
       data: base64Encode(utf8.encode(jsonEncode(param))),
     ));
     return Right(response.data);
