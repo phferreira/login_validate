@@ -18,14 +18,20 @@ class PostgresConnection extends IConnection {
     final _pass = Platform.environment['DB_PASS'].toString();
     final _name = Platform.environment['DB_NAME'].toString();
 
-    _connection = PostgreSQLConnection(_host, _port, _name, username: _user, password: _pass);
+    _connection = PostgreSQLConnection(
+      _host,
+      _port,
+      _name,
+      username: _user,
+      password: _pass,
+    );
   }
 
   factory PostgresConnection() {
     return _instance;
   }
 
-  void open() async {
+  Future<void> open() async {
     if (_connection.isClosed) {
       await _connection.open();
     }
@@ -34,6 +40,7 @@ class PostgresConnection extends IConnection {
   @override
   Future<Either<Failure, QueryType>> query(String sql) async {
     try {
+      await open();
       var result = await _connection.mappedResultsQuery(sql, substitutionValues: <String, dynamic>{});
       return result.isNotEmpty ? Right(result) : Left(PostgresNotFoundError('Could not find record.'));
     } on PostgreSQLSeverity {
@@ -43,7 +50,7 @@ class PostgresConnection extends IConnection {
     }
   }
 
-  void close() async {
+  Future<void> close() async {
     await _connection.close();
   }
 }
