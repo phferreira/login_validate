@@ -12,7 +12,13 @@ import 'package:dart_login/modules/query/infrastructure/repositories/query_repos
 import 'package:dartz/dartz.dart';
 
 class LoginValidateDataSource extends ILoginValidateDataSource {
-  final queryUsecase = QueryUsecase(repository: QueryRepository(dataSource: QueryDataSource(connection: PostgresConnection())));
+  final queryUsecase = QueryUsecase(
+    repository: QueryRepository(
+      dataSource: QueryDataSource(
+        connection: PostgresConnection(),
+      ),
+    ),
+  );
 
   @override
   Future<Either<Failure, JsonResultType>> loginValidate(JsonType param) async {
