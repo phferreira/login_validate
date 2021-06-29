@@ -13,12 +13,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:dart_login/modules/connection/domain/usecases/implementation/postgres_connection.dart';
 import 'package:functions_framework/serve.dart';
 import 'package:dart_login/functions.dart' as function_library;
 
 Future<void> main(List<String> args) async {
-  PostgresConnection().open();
   await serve(args, _nameToFunctionTarget);
 }
 
