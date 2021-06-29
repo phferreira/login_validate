@@ -15,6 +15,6 @@ final usecase = LoginValidateUseCase(
 
 @CloudFunction()
 Future<Response> function(Request request) async {
-  var result = await usecase(await request.readAsString());
+  var result = await usecase((jsonDecode(utf8.decode(base64Decode(await request.readAsString())))));
   return result.fold((l) => Response.forbidden(l.message), (r) => Response.ok(r));
 }
