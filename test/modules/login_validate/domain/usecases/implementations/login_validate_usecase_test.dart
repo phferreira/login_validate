@@ -14,17 +14,17 @@ void main() {
 
   test('Must be return a jsonType of String to response', () async {
     when(() => repository.loginValidate(any())).thenAnswer((_) async => Right('jsonResponse'));
-    final result = await repository.loginValidate(jsonLogin.toString());
+    final result = await repository.loginValidate(jsonLogin);
     expect(result.isRight(), true);
-    expect(result, isA<Right<Failure, JsonType>>());
+    expect(result, isA<Right<Failure, ResultType>>());
     verify(() => repository.loginValidate(any()));
   });
 
   test('Must be return a failure', () async {
     when(() => repository.loginValidate(any())).thenAnswer((_) async => Left(InvalidUserPassword()));
-    final result = await repository.loginValidate(jsonLogin.toString());
+    final result = await repository.loginValidate(jsonLogin);
     expect(result.isLeft(), true);
-    expect(result, isA<Left<Failure, JsonType>>());
+    expect(result, isA<Left<Failure, ResultType>>());
     verify(() => repository.loginValidate(any()));
   });
 }

@@ -4,7 +4,6 @@ import 'package:dart_login/modules/connection/domain/usecases/implementation/pos
 import 'package:dartz/dartz.dart';
 import 'package:test/test.dart';
 import 'package:dart_login/core/utils/types/query_type.dart';
-import '../../../../utils/query_result.dart';
 
 void main() {
   PostgresConnection().open();
@@ -18,6 +17,5 @@ void main() {
     expect(result.isRight(), true);
     expect(result, isA<Right<Failure, QueryType>>());
     expect(result.foldLeft(PostgresError(), (previous, r) => r[0]['']['result']), 1);
-    // expect(result, 1);
   });
 }
