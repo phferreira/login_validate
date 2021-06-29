@@ -15,7 +15,7 @@ class QueryDataSource extends IQueryDataSource {
   @override
   Future<Either<Failure, QueryType>> query(String query) async {
     try {
-      return connection.query(query);
+      return await connection.query(query);
     } catch (e) {
       return Left(QueryError());
     }
