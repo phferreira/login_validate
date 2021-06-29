@@ -3,5 +3,5 @@ import 'package:dartz/dartz.dart';
 import 'package:dart_login/core/utils/types/json_types.dart';
 
 abstract class IGetTokenDatasource {
-  Future<Either<Failure, JsonType>> getToken(JsonResultType param);
+  Future<Either<Failure, ResultType>> getToken(JsonResultType param);
 }

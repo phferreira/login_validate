@@ -3,5 +3,5 @@ import 'package:dartz/dartz.dart';
 import 'package:dart_login/core/utils/types/json_types.dart';
 
 abstract class ILoginValidateRepository {
-  Future<Either<Failure, JsonType>> loginValidate(JsonType param);
+  Future<Either<Failure, ResultType>> loginValidate(JsonType param);
 }

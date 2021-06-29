@@ -10,10 +10,10 @@ class GetTokenDataSource extends IGetTokenDatasource {
   final dio = Dio();
 
   @override
-  Future<Either<Failure, JsonType>> getToken(JsonResultType param) async {
+  Future<Either<Failure, ResultType>> getToken(JsonResultType param) async {
     var response = (await dio.post(
       'http://localhost:4323',
-      data: base64Encode(utf8.encode(param.toString())),
+      data: base64Encode(utf8.encode(jsonEncode(param))),
     ));
     return Right(response.data);
   }
